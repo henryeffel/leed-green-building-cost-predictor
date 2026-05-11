@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.matplotlib-cache/
 
 # Local runtime logs
 *.log

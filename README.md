@@ -134,6 +134,22 @@ reports/rating_classification_report.txt
 reports/rating_confusion_matrix.csv
 ```
 
+## ML Experiment Summary
+
+Generate portfolio-ready PNG charts from the saved ML report CSV files:
+
+```bash
+python -m src.visualize_reports
+```
+
+![Model experiment comparison](reports/visualizations/model_experiment_comparison.png)
+
+![Score feature importance](reports/visualizations/feature_importance_score.png)
+
+![Cost feature importance](reports/visualizations/feature_importance_cost.png)
+
+![Rating confusion matrix](reports/visualizations/rating_confusion_matrix.png)
+
 ## Model Improvement Process
 
 - Compare Dummy/Linear baselines against ensemble models.
