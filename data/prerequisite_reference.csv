@@ -1,0 +1,7 @@
+prerequisite_id,prerequisite_name,category
+IP-Prereq,Integrative Project Planning and Design,Integrative Process
+EA-Prereq-1,Fundamental Commissioning and Verification,Energy and Atmosphere
+EA-Prereq-2,Minimum Energy Performance,Energy and Atmosphere
+WE-Prereq,Indoor Water Use Reduction,Water Efficiency
+MR-Prereq,Storage and Collection of Recyclables,Materials and Resources
+EQ-Prereq,Minimum Indoor Air Quality Performance,Indoor Environmental Quality

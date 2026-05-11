@@ -1,0 +1,14 @@
+credit_id,credit_name,category,available_points,estimated_cost_per_point
+EA-Optimize,Optimize Energy Performance,Energy and Atmosphere,18,42000
+EA-Renewable,Renewable Energy,Energy and Atmosphere,5,65000
+WE-Indoor,Indoor Water Use Reduction,Water Efficiency,6,18000
+WE-Metering,Water Metering,Water Efficiency,1,9000
+MR-EPD,Environmental Product Declarations,Materials and Resources,2,11000
+MR-Sourcing,Sourcing of Raw Materials,Materials and Resources,2,14000
+MR-Waste,Construction Waste Management,Materials and Resources,2,9500
+EQ-Vent,Enhanced Indoor Air Quality Strategies,Indoor Environmental Quality,2,16000
+EQ-Light,Daylight,Indoor Environmental Quality,3,22000
+LT-Transit,Access to Quality Transit,Location and Transportation,5,8000
+SS-Heat,Heat Island Reduction,Sustainable Sites,2,12000
+IN-Innovation,Innovation,Innovation,5,15000
+RP-Priority,Regional Priority,Regional Priority,4,7000
