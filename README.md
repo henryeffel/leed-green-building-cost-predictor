@@ -1,5 +1,12 @@
 # LEED Green Building Cost Predictor
 
+**## 한국어 요약
+
+이 프로젝트는 AI 기반 플랫폼 개발 연구원 포지션 지원을 위해 제작한 친환경 건축 인증 예측 포트폴리오입니다.  
+공식 LEED Scorecard 구조를 참고한 reference layer, EnergyPlus-style CSV 분석, 머신러닝 기반 LEED 점수/등급/추가공사비 예측, 최소비용 credit 추천, ESG Summary Dashboard를 구현했습니다.
+
+본 프로젝트는 실제 LEED 인증 도구가 아니며, synthetic dataset을 활용한 포트폴리오용 프로토타입입니다.**
+
 Python Streamlit portfolio project for AI-based LEED score prediction, EnergyPlus-style CSV analysis, construction cost prediction, credit recommendation, and ESG reporting.
 
 This project is aimed at an AI platform developer portfolio context. It demonstrates how a SaaS-style AI module could combine reference rules, simulation output preprocessing, machine learning, optimization logic, and exportable reporting.
