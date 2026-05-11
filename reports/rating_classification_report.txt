@@ -1,0 +1,11 @@
+               precision    recall  f1-score   support
+
+    Certified       0.17      0.33      0.22         3
+         Gold       0.90      0.66      0.76        29
+Not Certified       0.00      0.00      0.00         1
+     Platinum       0.33      1.00      0.50         1
+       Silver       0.31      0.36      0.33        11
+
+     accuracy                           0.56        45
+    macro avg       0.34      0.47      0.36        45
+ weighted avg       0.68      0.56      0.60        45

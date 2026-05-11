@@ -105,13 +105,43 @@ The system separates reference logic from predictive logic.
 
 The reference layer in `src/rating.py` represents public LEED scorecard concepts such as prerequisites, category score structures, and rating thresholds. It is used for interpretability and target-gap calculations. It is not treated as the primary prediction engine.
 
-The predictive layer uses synthetic project records and EnergyPlus-style CSV metrics. `src/train_models.py` trains:
+The predictive layer uses synthetic project records and EnergyPlus-style CSV metrics. `src/train_models.py` runs a
+small ML experiment pipeline and compares baseline and improved models:
 
-- `RandomForestRegressor` for LEED score prediction
-- `RandomForestClassifier` for rating classification
-- `GradientBoostingRegressor` for additional construction cost prediction
+- Score regression: `DummyRegressor`, `LinearRegression`, `RandomForestRegressor`, `GradientBoostingRegressor`
+- Cost regression: `DummyRegressor`, `LinearRegression`, `RandomForestRegressor`, `GradientBoostingRegressor`
+- Rating classification: `DummyClassifier`, `LogisticRegression`, `RandomForestClassifier`
 
 The cost optimizer in `src/cost_optimizer.py` calculates the score gap to a selected target rating, sorts available credit candidates by estimated cost per point, and recommends the lowest-cost credit set that can close the gap.
+
+## ML Modeling Approach
+
+- Synthetic dataset generation based on green building assumptions
+- EnergyPlus-style output preprocessing for energy saving, annual cost saving, and CO2 reduction
+- Feature engineering across building metadata, energy metrics, water/material indicators, IEQ score, renewable energy, and site density
+- Baseline model comparison using dummy and linear models before ensemble models
+- Ensemble model selection using Random Forest and Gradient Boosting candidates
+- Evaluation metrics saved to `reports/model_experiments.csv`
+- Feature importance exports for selected score and cost models when supported by the final estimator
+
+Generated ML reports:
+
+```text
+reports/model_experiments.csv
+reports/feature_importance_score.csv
+reports/feature_importance_cost.csv
+reports/rating_classification_report.txt
+reports/rating_confusion_matrix.csv
+```
+
+## Model Improvement Process
+
+- Compare Dummy/Linear baselines against ensemble models.
+- Select score and cost regression models using highest R2, then lowest MAE.
+- Select rating classification model using highest macro F1, then Accuracy.
+- Use stratified train/test split and `class_weight='balanced'` for applicable classifiers to reduce class imbalance impact.
+- Store the selected final models in `models/model_bundle.joblib`.
+- Do not claim production-level accuracy because the current dataset is synthetic and generated for portfolio demonstration.
 
 ## Data
 
@@ -126,6 +156,8 @@ No real client, company, building, USGBC, or EnergyPlus dataset is included.
 - EnergyPlus-style CSV analysis
 - LEED score and rating prediction
 - Additional construction cost prediction
+- Model experiment comparison
+- Feature importance review
 - Minimum-cost credit recommendation
 - ESG summary dashboard
 - Excel export

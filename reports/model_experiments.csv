@@ -1,0 +1,12 @@
+task,model,mae,rmse,r2,accuracy,macro_f1,weighted_f1,notes
+score_regression,DummyRegressor_mean,7.469201646090533,9.253245750940458,-0.011430799163871574,,,,LEED total score prediction
+score_regression,LinearRegression,4.615258070276179,5.881681270920091,0.5913505168482376,,,,LEED total score prediction
+score_regression,RandomForestRegressor,5.248996925605259,6.3817348666028195,0.5189109238945788,,,,LEED total score prediction
+score_regression,GradientBoostingRegressor,4.998719644351982,5.959328103370777,0.5804897510184848,,,,LEED total score prediction
+cost_regression,DummyRegressor_mean,1859363.2228806582,2277156.4692177814,-0.001823474705058059,,,,Additional construction cost prediction
+cost_regression,LinearRegression,390313.11803356593,502419.7489951065,0.9512315601816219,,,,Additional construction cost prediction
+cost_regression,RandomForestRegressor,657287.5698370027,899870.7700167233,0.843553537387047,,,,Additional construction cost prediction
+cost_regression,GradientBoostingRegressor,540733.6670272,737507.9243785009,0.8949154570233119,,,,Additional construction cost prediction
+rating_classification,DummyClassifier_most_frequent,,,,0.6444444444444445,0.15675675675675677,0.5051051051051051,LEED rating class prediction
+rating_classification,LogisticRegression_balanced,,,,0.5555555555555556,0.36311111111111105,0.5971851851851853,LEED rating class prediction
+rating_classification,RandomForestClassifier_balanced,,,,0.6222222222222222,0.18095238095238095,0.5297354497354497,LEED rating class prediction

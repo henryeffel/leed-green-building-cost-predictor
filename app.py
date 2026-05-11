@@ -18,6 +18,7 @@ from src.train_models import train_and_save_models
 
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
+REPORT_DIR = ROOT / "reports"
 
 
 st.set_page_config(
@@ -50,6 +51,22 @@ def get_models() -> dict[str, object]:
 
 def format_percent(value: float) -> str:
     return f"{value * 100:.1f}%"
+
+
+@st.cache_data
+def load_report_csv(filename: str) -> pd.DataFrame:
+    path = REPORT_DIR / filename
+    if not path.exists():
+        train_and_save_models(ROOT / "models")
+    return pd.read_csv(path)
+
+
+@st.cache_data
+def load_report_text(filename: str) -> str:
+    path = REPORT_DIR / filename
+    if not path.exists():
+        train_and_save_models(ROOT / "models")
+    return path.read_text(encoding="utf-8")
 
 
 def project_input(default: pd.Series) -> pd.DataFrame:
@@ -167,17 +184,42 @@ def show_prediction_page(active_project: pd.DataFrame) -> pd.DataFrame:
     c2.metric("Rating classifier", row["predicted_rating_class"])
     c3.metric("Rating from score", row["predicted_rating_from_score"])
 
-    st.write("Model evaluation on held-out synthetic data")
-    eval_data = models["evaluation"]
-    metrics_df = pd.DataFrame(
-        [
-            {"Model": "LEED total score regression", **eval_data["score_regression"]},
-            {"Model": "Additional cost regression", **eval_data["cost_regression"]},
-        ]
+    selected_models = models.get("selected_models", {})
+    st.write("Selected final models")
+    st.dataframe(
+        pd.DataFrame(
+            [
+                {"Task": "Score regression", "Selected model": selected_models.get("score_regression", "N/A")},
+                {"Task": "Cost regression", "Selected model": selected_models.get("cost_regression", "N/A")},
+                {"Task": "Rating classification", "Selected model": selected_models.get("rating_classification", "N/A")},
+            ]
+        ),
+        use_container_width=True,
     )
-    st.dataframe(metrics_df, use_container_width=True)
+
+    st.write("Model experiment comparison on held-out synthetic data")
+    experiments = load_report_csv("model_experiments.csv")
+    st.dataframe(experiments, use_container_width=True)
+
+    c4, c5 = st.columns(2)
+    with c4:
+        st.write("Score prediction feature importance")
+        score_importance = load_report_csv("feature_importance_score.csv")
+        st.bar_chart(score_importance.head(12), x="feature", y="importance")
+    with c5:
+        st.write("Cost prediction feature importance")
+        cost_importance = load_report_csv("feature_importance_cost.csv")
+        st.bar_chart(cost_importance.head(12), x="feature", y="importance")
+
     st.text("Rating classification report")
-    st.code(eval_data["rating_classification"]["classification_report"])
+    st.code(load_report_text("rating_classification_report.txt"))
+    st.write("Rating confusion matrix")
+    st.dataframe(load_report_csv("rating_confusion_matrix.csv"), use_container_width=True)
+    st.info(
+        "Class imbalance limitation: the synthetic portfolio contains fewer samples for some LEED rating classes. "
+        "The pipeline uses stratified splitting and class_weight='balanced' where applicable, but these metrics should "
+        "not be interpreted as production-level accuracy."
+    )
     return prediction
 
 
