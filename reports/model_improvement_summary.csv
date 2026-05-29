@@ -1,0 +1,4 @@
+task,baseline_model,final_model,mae_improvement_pct,rmse_improvement_pct,r2_improvement_point,accuracy_improvement_point,macro_f1_improvement_point,weighted_f1_improvement_point,final_mae,final_rmse,final_r2,final_accuracy,final_macro_f1,final_weighted_f1,summary
+score_regression,DummyRegressor_mean,LinearRegression,38.21,36.44,0.60,,,,4.62,5.88,0.59,,,,Baseline 대비 LEED score prediction MAE 38.2% 개선
+cost_regression,DummyRegressor_mean,LinearRegression,79.01,77.94,0.95,,,,390313.12,502419.75,0.95,,,,Baseline 대비 additional construction cost prediction MAE 79.0% 개선
+rating_classification,DummyClassifier_most_frequent,LogisticRegression_balanced,,,,-0.09,0.21,0.09,,,,0.56,0.36,0.60,Macro F1은 20.6pp 개선됐지만 accuracy는 8.9pp 낮아짐

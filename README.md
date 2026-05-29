@@ -142,6 +142,16 @@ Generate portfolio-ready PNG charts from the saved ML report CSV files:
 python -m src.visualize_reports
 ```
 
+Baseline-to-final improvement summary from `reports/model_experiments.csv`:
+
+| Task | Baseline | Final selected model | Improvement summary |
+| --- | --- | --- | --- |
+| LEED score regression | `DummyRegressor_mean` | `LinearRegression` | MAE -38.2%, RMSE -36.4%, R2 +0.60 |
+| Additional cost regression | `DummyRegressor_mean` | `LinearRegression` | MAE -79.0%, RMSE -77.9%, R2 +0.95 |
+| Rating classification | `DummyClassifier_most_frequent` | `LogisticRegression_balanced` | Accuracy -8.9pp, macro F1 +20.6pp, weighted F1 +9.2pp |
+
+The rating classifier is selected on macro F1 rather than raw accuracy because the synthetic rating labels are imbalanced. These metrics compare models within the generated synthetic dataset only and should not be presented as production-level accuracy.
+
 ![Model experiment comparison](reports/visualizations/model_experiment_comparison.png)
 
 ![Score feature importance](reports/visualizations/feature_importance_score.png)
