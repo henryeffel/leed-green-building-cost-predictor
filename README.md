@@ -47,12 +47,24 @@ leed-green-building-cost-predictor/
 │   └── cost_assumptions.csv
 ├── models/
 ├── reports/
+│   ├── model_experiments.csv
+│   ├── feature_importance_score.csv
+│   ├── feature_importance_cost.csv
+│   ├── rating_classification_report.txt
+│   ├── rating_confusion_matrix.csv
+│   └── visualizations/
+│       ├── model_experiment_comparison.png
+│       ├── feature_importance_score.png
+│       ├── feature_importance_cost.png
+│       └── rating_confusion_matrix.png
 ├── src/
+│   ├── __init__.py
 │   ├── data_generator.py
 │   ├── preprocessing.py
 │   ├── energyplus_parser.py
 │   ├── feature_engineering.py
 │   ├── train_models.py
+│   ├── visualize_reports.py
 │   ├── predict.py
 │   ├── rating.py
 │   ├── cost_optimizer.py
@@ -73,31 +85,33 @@ Create and activate a virtual environment, then install dependencies:
 pip install -r requirements.txt
 ```
 
-Generate deterministic synthetic datasets:
+Run the local prototype workflow:
 
 ```bash
 python -m src.data_generator
-```
-
-Train the ML models:
-
-```bash
 python -m src.train_models
-```
-
-Run the Streamlit app:
-
-```bash
+python -m src.visualize_reports
+pytest
 streamlit run app.py
 ```
 
-Run tests:
+This sequence regenerates the synthetic dataset, trains the local ML models, creates report visualizations, runs tests, and starts the Streamlit prototype.
+
+The Streamlit app also generates missing sample data and trains missing models on first run, but running the commands above makes the portfolio demo outputs explicit.
+
+## Optional FastAPI + OpenAI API Extension
+
+Current MVP is Streamlit-based.
+
+A lightweight FastAPI backend extension exposes prediction and recommendation endpoints. OpenAI API is used only as an optional natural-language reporting layer.
+
+Numerical prediction and optimization are handled by deterministic backend functions and trained ML models. This separates LLM explanation from numerical calculation to reduce hallucination risk.
+
+Run the optional API extension:
 
 ```bash
-pytest
+uvicorn api.main:app --reload
 ```
-
-The Streamlit app also generates missing sample data and trains missing models on first run.
 
 ## Architecture
 
@@ -136,7 +150,7 @@ reports/rating_confusion_matrix.csv
 
 ## ML Experiment Summary
 
-Generate portfolio-ready PNG charts from the saved ML report CSV files:
+Generate PNG charts from the saved ML report CSV files after running the model training step:
 
 ```bash
 python -m src.visualize_reports

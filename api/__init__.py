@@ -1,0 +1,1 @@
+"""Optional FastAPI extension package."""
